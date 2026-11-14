@@ -2,19 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://kubwfqk83juc" path="res://Assets/bullet.png" id="1_v7oki"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
-size = Vector2(177.41931, 1000.00073)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d80li"]
+size = Vector2(305, 42)
 
-[node name="Bullet" type="CharacterBody2D" unique_id=1868273654]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=2023474162]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1915252840]
-position = Vector2(197, 3.637979e-12)
-rotation = 1.5707964
-scale = Vector2(0.062, 0.062)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1656048867]
+position = Vector2(644, 738)
+rotation = 1.5548692
+scale = Vector2(0.30491105, 0.30491105)
 texture = ExtResource("1_v7oki")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1361227941]
-position = Vector2(196.99998, 0.49999976)
-rotation = 1.5707964
-scale = Vector2(0.062, 0.062)
-shape = SubResource("RectangleShape2D_p1rdq")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=740636444]
+position = Vector2(647, 737)
+shape = SubResource("RectangleShape2D_d80li")
