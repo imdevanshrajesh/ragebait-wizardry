@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed: float = 900.0
-@export var max_bounces: int = 4
+@export var speed: float = 1500.0
+@export var max_bounces: int = 5
 @export var required_bounces: int = 1
 
 var bounces_done: int = 0

@@ -2,7 +2,7 @@ extends Node2D
 
 const BULLET_SCENE := preload("res://bullet.tscn")
 
-@export var ammo: int = 5
+@export var ammo: int = 10
 @export var bullet_speed: float = 900.0
 @export var max_bounces: int = 4
 @export var required_bounces: int = 1

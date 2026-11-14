@@ -67,7 +67,7 @@ size = Vector2(1189, 710)
 
 [node name="Level5" type="Node2D" unique_id=832187486]
 script = SubResource("GDScript_ootpb")
-required_bounces = 5
+required_bounces = 3
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1347023165]
 position = Vector2(283, 1806)
