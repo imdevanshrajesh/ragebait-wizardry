@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://b2ujtvgm0slhk"]
 
-[ext_resource type="Texture2D" uid="uid://b65tfjb11swod" path="res://Characters/mr-bullet-400x400 Background Removed.png" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cc6b8wv5gsuag" path="res://Characters/player Background Removed.png" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://c7pyde101nbak" path="res://Assets/ak47-2.png" id="2_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
-size = Vector2(189, 287.5)
+size = Vector2(189, 294.77484)
 
 [node name="Player" type="Node2D" unique_id=939501367]
 
@@ -12,17 +12,18 @@ size = Vector2(189, 287.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1160268218]
 position = Vector2(163, 288)
-scale = Vector2(0.66, 0.66)
+scale = Vector2(0.20959157, 0.20242378)
 texture = ExtResource("1_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1862383837]
-position = Vector2(159.5, 287.75)
+position = Vector2(144, 280.99997)
+scale = Vector2(0.9165049, 1.0741706)
 shape = SubResource("RectangleShape2D_p1rdq")
 
 [node name="GunPivot" type="Node2D" parent="Player" unique_id=1708626220]
-position = Vector2(148.99998, 364)
+position = Vector2(157.00002, 192.00002)
 rotation = 0.05352585
-scale = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.4553097, 0.48909268)
 
 [node name="GunSprite" type="Sprite2D" parent="Player/GunPivot" unique_id=209942747]
 position = Vector2(45, 24)
@@ -31,4 +32,4 @@ texture = ExtResource("2_i3pqv")
 
 [node name="FirePoint" type="Marker2D" parent="Player/GunPivot/GunSprite" unique_id=1883558932]
 position = Vector2(581.14685, -90.96277)
-scale = Vector2(3.8707552, 3.6599083)
+scale = Vector2(3.870436, 3.6520944)
