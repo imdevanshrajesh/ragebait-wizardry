@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cgrwdn8m1wsvr" path="res://Bgs/bg.png" id="1_hn12h"]
 [ext_resource type="PackedScene" uid="uid://cpoaij2cyvhs5" path="res://enemy.tscn" id="2_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://b2ujtvgm0slhk" path="res://player.tscn" id="3_rka8t"]
+[ext_resource type="Texture2D" uid="uid://pxtk1dudrpk5" path="res://Assets/brick.png" id="4_ihfcg"]
 
 [sub_resource type="GDScript" id="GDScript_ootpb"]
 script/source = "extends Node2D
@@ -14,13 +15,27 @@ func _process(_delta: float) -> void:
 		ui.visible = true
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofp2b"]
+size = Vector2(463.86035, 94.14612)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(1189, 710)
+
 [node name="Level1" type="Node2D" unique_id=832187486]
 script = SubResource("GDScript_ootpb")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=920446133]
-position = Vector2(475.99988, 1021)
-scale = Vector2(3.6751392, 3.675139)
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1347023165]
+position = Vector2(283, 1806)
+scale = Vector2(3.6751392, 3.6751378)
+
+[node name="Background" type="Sprite2D" parent="StaticBody2D" unique_id=920446133]
+position = Vector2(52.515007, -213.59741)
+scale = Vector2(1.0000002, 1.0000005)
 texture = ExtResource("1_hn12h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=716720944]
+scale = Vector2(1.0000002, 1.0000001)
+shape = SubResource("RectangleShape2D_ofp2b")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2113964160]
 
@@ -38,5 +53,29 @@ offset_bottom = 23.0
 text = "WIN"
 
 [node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
-position = Vector2(11.000001, 1088)
+position = Vector2(248.00002, 1088)
 scale = Vector2(1.2435384, 1.2170053)
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=233863487]
+position = Vector2(-238, -1203)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1259656115]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=1850985]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968]
+position = Vector2(4839, -1204)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=294859130]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
