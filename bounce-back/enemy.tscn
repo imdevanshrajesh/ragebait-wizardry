@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cpoaij2cyvhs5"]
+
+[ext_resource type="Texture2D" uid="uid://b65tfjb11swod" path="res://Characters/mr-bullet-400x400 Background Removed.png" id="1_7k104"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(55, 89)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1628089176]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=298832314]
+position = Vector2(311, 208)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("1_7k104")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=627886026]
+position = Vector2(310.50003, 210.5)
+shape = SubResource("RectangleShape2D_p1rdq")
