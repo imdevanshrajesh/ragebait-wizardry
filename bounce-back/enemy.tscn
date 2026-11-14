@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpoaij2cyvhs5"]
 
-[ext_resource type="Texture2D" uid="uid://crm3sjo7yqgb2" path="res://Characters/mainchaar.png" id="1_7k104"]
+[ext_resource type="Texture2D" uid="uid://bulbdxty3wq6i" path="res://Assets/enemy.png" id="1_7k104"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
 size = Vector2(55, 65)
@@ -8,8 +8,8 @@ size = Vector2(55, 65)
 [node name="Enemy" type="StaticBody2D" unique_id=544123933 groups=["enemy"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=298832314]
-position = Vector2(311, 208)
-scale = Vector2(0.23, 0.23)
+position = Vector2(313, 208)
+scale = Vector2(0.102632254, 0.102632254)
 texture = ExtResource("1_7k104")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=627886026]

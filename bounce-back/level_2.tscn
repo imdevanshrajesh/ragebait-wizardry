@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5c20gydoqaci"]
 
-[ext_resource type="Texture2D" uid="uid://cgrwdn8m1wsvr" path="res://Bgs/bg.png" id="1_hn12h"]
+[ext_resource type="Texture2D" uid="uid://3avc5jh4dflo" path="res://Bgs/bg2.png" id="1_1y8me"]
 [ext_resource type="PackedScene" uid="uid://cpoaij2cyvhs5" path="res://enemy.tscn" id="2_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://b2ujtvgm0slhk" path="res://player.tscn" id="3_rka8t"]
 [ext_resource type="Texture2D" uid="uid://pxtk1dudrpk5" path="res://Assets/brick.png" id="4_ihfcg"]
@@ -8,35 +8,56 @@
 [sub_resource type="GDScript" id="GDScript_ootpb"]
 script/source = "extends Node2D
 
-@export var next_level: PackedScene
+@export var required_bounces: int = 1
+@export_file(\"*.tscn\") var next_level_path: String = \"\"
 
 @onready var enemies_folder: Node2D = $Enemies
 @onready var ui: CanvasLayer = $UI
 @onready var label: Label = $UI/Label
 @onready var player: Node2D = $Player
 
+var transitioning: bool = false
+
 func _ready() -> void:
 	ui.visible = true
 	label.position = Vector2(60, 60)
-	label.add_theme_font_size_override(\"font_size\", 48)
+	label.add_theme_font_size_override(\"font_size\", 44)
+	label.add_theme_color_override(\"font_color\", Color.BLACK)
+	if required_bounces > 1:
+		player.required_bounces = required_bounces
+
+func get_target_next_level() -> String:
+	if next_level_path != \"\":
+		return next_level_path
+	if scene_file_path.ends_with(\"level_1.tscn\") and ResourceLoader.exists(\"res://level_2.tscn\"):
+		return \"res://level_2.tscn\"
+	if scene_file_path.ends_with(\"level_2.tscn\") and ResourceLoader.exists(\"res://level_3.tscn\"):
+		return \"res://level_3.tscn\"
+	return \"\"
 
 func _process(_delta: float) -> void:
 	if Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
 		return
 	if enemies_folder.get_child_count() == 0:
-		if next_level != null:
-			label.text = \"YOU WIN! Press SPACE for Next Level\"
-			if Input.is_key_pressed(KEY_SPACE):
-				get_tree().change_scene_to_packed(next_level)
+		var target := get_target_next_level()
+		if target != \"\":
+			label.text = \"YOU WIN! Loading Next Level...\"
+			if not transitioning:
+				transitioning = true
+				await get_tree().create_timer(1.0).timeout
+				get_tree().change_scene_to_file(target)
 		else:
-			label.text = \"YOU WIN! (Press R to Replay)\"
-	elif not is_instance_valid(player):
+			label.text = \"YOU BEAT THE GAME! (Press R to Replay)\"
+	elif not is_instance_valid(player) or player.is_dead:
 		label.text = \"YOU DIED! (Press R to Retry)\"
 	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
 		label.text = \"OUT OF AMMO! (Press R to Retry)\"
 	else:
-		label.text = \"Ammo: \" + str(player.ammo) + \" | Min Bounces: \" + str(player.required_bounces)
+		var current_bounces := 0
+		if is_instance_valid(player.last_bullet):
+			current_bounces = player.last_bullet.bounces_done
+		label.text = \"Ammo: \" + str(player.ammo) + \" | Min Bounces: \" + str(player.required_bounces) + \" | Bounces: \" + str(current_bounces)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ofp2b"]
@@ -45,22 +66,24 @@ size = Vector2(463.86035, 94.14612)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
 size = Vector2(1189, 710)
 
-[node name="Level1" type="Node2D" unique_id=832187486]
+[node name="Level2" type="Node2D" unique_id=832187486]
 script = SubResource("GDScript_ootpb")
-next_level = null
+required_bounces = 2
+next_level_path = "uid://vrserm74rvjl"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1347023165]
 position = Vector2(283, 1806)
 scale = Vector2(3.6751392, 3.6751378)
 
-[node name="Background" type="Sprite2D" parent="StaticBody2D" unique_id=920446133]
-position = Vector2(52.515007, -213.59741)
-scale = Vector2(1.0000002, 1.0000005)
-texture = ExtResource("1_hn12h")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=716720944]
+position = Vector2(-2.7209852, 54.419727)
 scale = Vector2(1.0000002, 1.0000001)
 shape = SubResource("RectangleShape2D_ofp2b")
+
+[node name="Background" type="Sprite2D" parent="StaticBody2D" unique_id=78269469]
+position = Vector2(261.48672, -243.52829)
+scale = Vector2(1.4141284, 1.4141288)
+texture = ExtResource("1_1y8me")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2113964160]
 scale = Vector2(1.0005345, 1.0007972)
@@ -85,12 +108,8 @@ offset_right = 39.0
 offset_bottom = 23.0
 text = "WIN"
 
-[node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
-position = Vector2(74, 1279.0001)
-scale = Vector2(0.84284097, 0.8248574)
-
 [node name="Wall" type="StaticBody2D" parent="." unique_id=233863487 groups=["walls"]]
-position = Vector2(-238, -1203)
+position = Vector2(-248, -1003)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1259656115]
@@ -138,7 +157,7 @@ position = Vector2(-516.5, 502)
 shape = SubResource("RectangleShape2D_p1rdq")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
-position = Vector2(4839, -1204)
+position = Vector2(4829, -1004)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
@@ -160,3 +179,7 @@ texture = ExtResource("4_ihfcg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4" unique_id=1987252304]
 position = Vector2(-524.46136, 480.4384)
 shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
+position = Vector2(25, 1134)
+scale = Vector2(0.84284097, 0.8248574)

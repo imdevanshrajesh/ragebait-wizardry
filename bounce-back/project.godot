@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BounceBack"
-run/main_scene="uid://du3jcmma6n85t"
+run/main_scene="uid://d2sn322yigdtv"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://cahjb2ymw0w7g"]
+
+[ext_resource type="Texture2D" uid="uid://3avc5jh4dflo" path="res://Bgs/bg2.png" id="1_48hld"]
+[ext_resource type="PackedScene" uid="uid://cpoaij2cyvhs5" path="res://enemy.tscn" id="2_ihfcg"]
+[ext_resource type="PackedScene" uid="uid://b2ujtvgm0slhk" path="res://player.tscn" id="3_rka8t"]
+[ext_resource type="Texture2D" uid="uid://pxtk1dudrpk5" path="res://Assets/brick.png" id="4_ihfcg"]
+
+[sub_resource type="GDScript" id="GDScript_ootpb"]
+script/source = "extends Node2D
+
+@export var required_bounces: int = 1
+@export_file(\"*.tscn\") var next_level_path: String = \"\"
+
+@onready var enemies_folder: Node2D = $Enemies
+@onready var ui: CanvasLayer = $UI
+@onready var label: Label = $UI/Label
+@onready var player: Node2D = $Player
+
+var transitioning: bool = false
+
+func _ready() -> void:
+	ui.visible = true
+	label.position = Vector2(60, 60)
+	label.add_theme_font_size_override(\"font_size\", 44)
+	if required_bounces > 1:
+		player.required_bounces = required_bounces
+
+func get_target_next_level() -> String:
+	if next_level_path != \"\":
+		return next_level_path
+	if scene_file_path.ends_with(\"level_1.tscn\") and ResourceLoader.exists(\"res://level_2.tscn\"):
+		return \"res://level_2.tscn\"
+	if scene_file_path.ends_with(\"level_2.tscn\") and ResourceLoader.exists(\"res://level_3.tscn\"):
+		return \"res://level_3.tscn\"
+	return \"\"
+
+func _process(_delta: float) -> void:
+	if Input.is_key_pressed(KEY_R):
+		get_tree().reload_current_scene()
+		return
+	if enemies_folder.get_child_count() == 0:
+		var target := get_target_next_level()
+		if target != \"\":
+			label.text = \"YOU WIN! Loading Next Level...\"
+			if not transitioning:
+				transitioning = true
+				await get_tree().create_timer(1.0).timeout
+				get_tree().change_scene_to_file(target)
+		else:
+			label.text = \"YOU BEAT THE GAME! (Press R to Replay)\"
+	elif not is_instance_valid(player):
+		label.text = \"YOU DIED! (Press R to Retry)\"
+	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
+		label.text = \"OUT OF AMMO! (Press R to Retry)\"
+	else:
+		var current_bounces := 0
+		if is_instance_valid(player.last_bullet):
+			current_bounces = player.last_bullet.bounces_done
+		label.text = \"Ammo: \" + str(player.ammo) + \" | Min Bounces: \" + str(player.required_bounces) + \" | Bounces: \" + str(current_bounces)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofp2b"]
+size = Vector2(463.86035, 94.14612)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(1189, 710)
+
+[node name="Level4" type="Node2D" unique_id=832187486]
+script = SubResource("GDScript_ootpb")
+required_bounces = 4
+next_level_path = "uid://bl1jmapggn37x"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1347023165]
+position = Vector2(283, 1806)
+scale = Vector2(3.6751392, 3.6751378)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=716720944]
+position = Vector2(-18.2306, 57.140713)
+scale = Vector2(1.0000002, 1.0000001)
+shape = SubResource("RectangleShape2D_ofp2b")
+
+[node name="Background" type="Sprite2D" parent="StaticBody2D" unique_id=389986932]
+position = Vector2(261.48672, -243.52829)
+scale = Vector2(1.4141284, 1.4141288)
+texture = ExtResource("1_48hld")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2113964160]
+scale = Vector2(1.0005345, 1.0007972)
+
+[node name="Enemy" parent="Enemies" unique_id=544123933 instance=ExtResource("2_ihfcg")]
+position = Vector2(1367.269, -183.85344)
+scale = Vector2(-2.6611924, 2.4817338)
+
+[node name="Enemy2" parent="Enemies" unique_id=132355737 instance=ExtResource("2_ihfcg")]
+position = Vector2(-724.6127, 463.63043)
+scale = Vector2(2.8558612, 2.4817338)
+
+[node name="Enemy3" parent="Enemies" unique_id=64861 instance=ExtResource("2_ihfcg")]
+position = Vector2(1280.3153, 365.7085)
+scale = Vector2(-2.6611924, 2.4817338)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=573386668]
+
+[node name="Label" type="Label" parent="UI" unique_id=1080015511]
+offset_left = -1.0
+offset_right = 39.0
+offset_bottom = 23.0
+text = "WIN"
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=233863487 groups=["walls"]]
+position = Vector2(-305, -993)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1259656115]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=1850985]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy" type="StaticBody2D" parent="." unique_id=2124521668 groups=["walls"]]
+position = Vector2(710, 390)
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1893193246]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=214670224]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy3" type="StaticBody2D" parent="." unique_id=1365166686 groups=["walls"]]
+position = Vector2(593, 939)
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy3" unique_id=1881072668]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3" unique_id=214286136]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy2" type="StaticBody2D" parent="." unique_id=861749881 groups=["walls"]]
+position = Vector2(261, 1036)
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy2" unique_id=141675941]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2" unique_id=2121934268]
+position = Vector2(-513.7449, 509.93536)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
+position = Vector2(4772, -994)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=294859130]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall4" type="StaticBody2D" parent="." unique_id=1491327045 groups=["walls"]]
+position = Vector2(2079, -2684.0002)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall4" unique_id=1578205383]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4" unique_id=1987252304]
+position = Vector2(-524.46136, 480.4384)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
+position = Vector2(25.000002, 1134)
+scale = Vector2(0.84284097, 0.8248574)
