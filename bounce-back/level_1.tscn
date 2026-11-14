@@ -8,11 +8,35 @@
 [sub_resource type="GDScript" id="GDScript_ootpb"]
 script/source = "extends Node2D
 
+@export var next_level: PackedScene
+
 @onready var enemies_folder: Node2D = $Enemies
 @onready var ui: CanvasLayer = $UI
+@onready var label: Label = $UI/Label
+@onready var player: Node2D = $Player
+
+func _ready() -> void:
+	ui.visible = true
+	label.position = Vector2(60, 60)
+	label.add_theme_font_size_override(\"font_size\", 48)
+
 func _process(_delta: float) -> void:
+	if Input.is_key_pressed(KEY_R):
+		get_tree().reload_current_scene()
+		return
 	if enemies_folder.get_child_count() == 0:
-		ui.visible = true
+		if next_level != null:
+			label.text = \"YOU WIN! Press SPACE for Next Level\"
+			if Input.is_key_pressed(KEY_SPACE):
+				get_tree().change_scene_to_packed(next_level)
+		else:
+			label.text = \"YOU WIN! (Press R to Replay)\"
+	elif not is_instance_valid(player):
+		label.text = \"YOU DIED! (Press R to Retry)\"
+	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
+		label.text = \"OUT OF AMMO! (Press R to Retry)\"
+	else:
+		label.text = \"Ammo: \" + str(player.ammo) + \" | Min Bounces: \" + str(player.required_bounces)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ofp2b"]
@@ -38,13 +62,13 @@ scale = Vector2(1.0000002, 1.0000001)
 shape = SubResource("RectangleShape2D_ofp2b")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2113964160]
+scale = Vector2(1.0005345, 1.0007972)
 
 [node name="Enemy" parent="Enemies" unique_id=544123933 instance=ExtResource("2_ihfcg")]
-position = Vector2(2053, 812.00006)
-scale = Vector2(-3.663525, 3.4164739)
+position = Vector2(1717.0822, 94.92432)
+scale = Vector2(-2.6611924, 2.4817338)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=573386668]
-visible = false
 
 [node name="Label" type="Label" parent="UI" unique_id=1080015511]
 offset_left = -1.0
@@ -53,10 +77,10 @@ offset_bottom = 23.0
 text = "WIN"
 
 [node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
-position = Vector2(248.00002, 1088)
-scale = Vector2(1.2435384, 1.2170053)
+position = Vector2(74, 1279.0001)
+scale = Vector2(0.84284097, 0.8248574)
 
-[node name="Wall" type="StaticBody2D" parent="." unique_id=233863487]
+[node name="Wall" type="StaticBody2D" parent="." unique_id=233863487 groups=["walls"]]
 position = Vector2(-238, -1203)
 scale = Vector2(3.4073052, 3.4073052)
 
@@ -68,7 +92,19 @@ texture = ExtResource("4_ihfcg")
 position = Vector2(-516.5, 502)
 shape = SubResource("RectangleShape2D_p1rdq")
 
-[node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968]
+[node name="Wall3" type="StaticBody2D" parent="." unique_id=2124521668 groups=["walls"]]
+position = Vector2(1059, 668)
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall3" unique_id=1893193246]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3" unique_id=214670224]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
 position = Vector2(4839, -1204)
 scale = Vector2(3.4073052, 3.4073052)
 
@@ -78,4 +114,16 @@ texture = ExtResource("4_ihfcg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=294859130]
 position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall4" type="StaticBody2D" parent="." unique_id=1491327045 groups=["walls"]]
+position = Vector2(2138, -2806)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall4" unique_id=1578205383]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4" unique_id=1987252304]
+position = Vector2(-524.46136, 480.4384)
 shape = SubResource("RectangleShape2D_p1rdq")

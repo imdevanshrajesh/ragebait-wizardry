@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://d2sn322yigdtv"]
+
+[ext_resource type="Script" uid="uid://dm5yyhpaxfdp6" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://cgrwdn8m1wsvr" path="res://Bgs/bg.png" id="2_fu7sn"]
+
+[node name="MainMenu" type="Control" unique_id=921526752]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7vrkn")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1158104365]
+layout_mode = 0
+offset_left = -1441.0
+offset_top = -2.0
+offset_right = -243.0
+offset_bottom = 541.0
+scale = Vector2(3.5418756, 3.5418756)
+texture = ExtResource("2_fu7sn")
+
+[node name="PlayButton" type="Button" parent="TextureRect" unique_id=569933213]
+layout_mode = 0
+offset_left = 523.1691
+offset_top = 213.1639
+offset_right = 705.1691
+offset_bottom = 320.16388
+scale = Vector2(0.5332939, 0.42332256)
+theme_override_font_sizes/font_size = 72
+text = "PLAY"
+
+[node name="QuitButton" type="Button" parent="TextureRect" unique_id=101157460]
+layout_mode = 0
+offset_left = 523.7339
+offset_top = 266.8078
+offset_right = 705.7339
+offset_bottom = 373.8078
+scale = Vector2(0.5332939, 0.42332256)
+theme_override_font_sizes/font_size = 72
+text = "Quit
+"
