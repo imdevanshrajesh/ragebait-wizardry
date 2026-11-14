@@ -1,12 +1,21 @@
 [gd_scene format=3 uid="uid://baxpmyndny1rr"]
 
-[ext_resource type="Script" uid="uid://e4jxp3a8xexu" path="res://level_1.gd" id="1_v8kj3"]
 [ext_resource type="Texture2D" uid="uid://cgrwdn8m1wsvr" path="res://Bgs/bg.png" id="1_v38iq"]
 [ext_resource type="PackedScene" uid="uid://b2ujtvgm0slhk" path="res://player.tscn" id="3_ootpb"]
 [ext_resource type="PackedScene" uid="uid://cpoaij2cyvhs5" path="res://enemy.tscn" id="4_i2041"]
 
+[sub_resource type="GDScript" id="GDScript_ootpb"]
+script/source = "extends Node2D
+
+@onready var enemies_folder: Node2D = $Enemies
+@onready var ui: CanvasLayer = $UI
+func _process(_delta: float) -> void:
+	if enemies_folder.get_child_count() == 0:
+		ui.visible = true
+"
+
 [node name="Level1" type="Node2D" unique_id=832187486]
-script = ExtResource("1_v8kj3")
+script = SubResource("GDScript_ootpb")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=920446133]
 position = Vector2(475.99988, 1021)

@@ -1,11 +1,18 @@
 [gd_scene format=3 uid="uid://bud003tlrjm48"]
 
 [ext_resource type="Texture2D" uid="uid://c7pyde101nbak" path="res://Assets/ak47-2.png" id="1_dk5gl"]
-[ext_resource type="Script" uid="uid://c8w0shbegjetg" path="res://gun.gd" id="2_kw0bs"]
+
+[sub_resource type="GDScript" id="GDScript_vk1bi"]
+script/source = "extends Sprite2D
+
+@onready var marker_2d: Marker2D = $Marker2D
+
+func _process(delta: float) -> void:
+	look_at(get_global_mouse_position())"
 
 [node name="Gun" type="Sprite2D" unique_id=514129556]
 texture = ExtResource("1_dk5gl")
-script = ExtResource("2_kw0bs")
+script = SubResource("GDScript_vk1bi")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=191039824]
 position = Vector2(-536, -23)
