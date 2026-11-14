@@ -1,7 +1,7 @@
 extends Node2D
 
 const BULLET_SCENE := preload("res://bullet.tscn")
-
+@export var sound_played: bool = false
 @export var ammo: int = 10
 @export var bullet_speed: float = 900.0
 @export var max_bounces: int = 4
@@ -89,6 +89,11 @@ func update_laser_sight() -> void:
 	laser_line.points = [start_pos, start_pos + dir * laser_length]
 
 func shoot() -> void:
+	if sound_played == false:
+			var sfx = AudioStreamPlayer.new()
+			sfx.stream = load("res://Assets/gun.mp3")
+			add_child(sfx)
+			sfx.play()
 	ammo -= 1
 	var bullet := BULLET_SCENE.instantiate()
 	var dir := get_aim_direction()

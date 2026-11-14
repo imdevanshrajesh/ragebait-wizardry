@@ -2,6 +2,7 @@ extends Control
 
 @onready var play_button: Button = $TextureRect/PlayButton
 @onready var quit_button: Button = $TextureRect/QuitButton
+@export var sound_played: bool = false
 
 func _ready() -> void:
 	for btn in [play_button, quit_button]:
@@ -13,6 +14,11 @@ func _ready() -> void:
 	quit_button.pressed.connect(_on_quit_pressed)
 
 func _on_play_pressed() -> void:
+	if sound_played == false:
+			var sfx = AudioStreamPlayer.new()
+			sfx.stream = load("res://Assets/button.mp3")
+			add_child(sfx)
+			sfx.play()
 	get_tree().change_scene_to_file("res://level_1.tscn")
 
 func _on_quit_pressed() -> void:

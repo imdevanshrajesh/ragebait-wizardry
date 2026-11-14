@@ -15,7 +15,7 @@ script/source = "extends Node2D
 @onready var ui: CanvasLayer = $UI
 @onready var label: Label = $UI/Label
 @onready var player: Node2D = $Player
-
+var sound_played: bool = false
 var transitioning: bool = false
 
 func _ready() -> void:
@@ -50,6 +50,12 @@ func _process(_delta: float) -> void:
 		else:
 			label.text = \"YOU BEAT THE GAME! (Press R to Replay)\"
 	elif not is_instance_valid(player) or player.is_dead:
+		if sound_played == false:
+			sound_played = true
+			var sfx = AudioStreamPlayer.new()
+			sfx.stream = load(\"res://Assets/death.mp3\")
+			add_child(sfx)
+			sfx.play()
 		label.text = \"YOU DIED! (Press R to Retry)\"
 	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
 		label.text = \"OUT OF AMMO! (Press R to Retry)\"
@@ -191,7 +197,7 @@ texture = ExtResource("4_ihfcg")
 position = Vector2(-524.46136, 480.4384)
 shape = SubResource("RectangleShape2D_p1rdq")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1716584542]
+[node name="Area2D" type="StaticBody2D" parent="." unique_id=552961083 groups=["walls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2021142894]
 position = Vector2(187, 1653)
