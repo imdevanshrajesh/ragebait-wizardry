@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
 size = Vector2(177.41931, 1000.00073)
 
-[node name="Bullet" type="RigidBody2D" unique_id=1195723437]
+[node name="Bullet" type="CharacterBody2D" unique_id=1868273654]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1915252840]
 position = Vector2(197, 3.637979e-12)

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://fmobyganrg7i"]
+
+[ext_resource type="Texture2D" uid="uid://b65tfjb11swod" path="res://Characters/mr-bullet-400x400 Background Removed.png" id="1_6cki8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(189, 287.5)
+
+[node name="Playing" type="Node2D" unique_id=939501367]
+
+[node name="Player" type="Area2D" parent="." unique_id=1054547068]
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1160268218]
+position = Vector2(163, 288)
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("1_6cki8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1862383837]
+position = Vector2(159.5, 287.75)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="GunPivot" type="Node2D" parent="Player" unique_id=1708626220]
+position = Vector2(226, 285)
+
+[node name="GunSprite" type="Sprite2D" parent="." unique_id=1784572458]
+position = Vector2(227, 286)

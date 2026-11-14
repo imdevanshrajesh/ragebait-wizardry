@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://dxaf422ll0qse"]
+[gd_scene format=3 uid="uid://b2ujtvgm0slhk"]
 
 [ext_resource type="Texture2D" uid="uid://d2i14khpguqin" path="res://Bgs/bg.jpeg" id="1_3hls8"]
 
-[node name="level1" type="Node2D" unique_id=384946105]
+[node name="BG" type="Area2D" unique_id=294361734]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1327058433]
 position = Vector2(815, 311.64288)
