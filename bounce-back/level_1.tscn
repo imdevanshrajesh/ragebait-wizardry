@@ -66,6 +66,12 @@ size = Vector2(463.86035, 94.14612)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
 size = Vector2(1189, 710)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihfcg"]
+size = Vector2(290.5, 309)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rka8t"]
+size = Vector2(1189, 710)
+
 [node name="Level1" type="Node2D" unique_id=832187486]
 script = SubResource("GDScript_ootpb")
 
@@ -103,7 +109,7 @@ position = Vector2(25, 1134)
 scale = Vector2(0.84284097, 0.8248574)
 
 [node name="Wall" type="StaticBody2D" parent="." unique_id=233863487 groups=["walls"]]
-position = Vector2(-229, -940)
+position = Vector2(-217.00002, -941)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1259656115]
@@ -127,7 +133,7 @@ position = Vector2(-516.5, 502)
 shape = SubResource("RectangleShape2D_p1rdq")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
-position = Vector2(4831, -941)
+position = Vector2(4834, -941)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
@@ -139,7 +145,7 @@ position = Vector2(-516.5, 502)
 shape = SubResource("RectangleShape2D_p1rdq")
 
 [node name="Wall4" type="StaticBody2D" parent="." unique_id=1491327045 groups=["walls"]]
-position = Vector2(2138, -2806)
+position = Vector2(2157, -2816)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall4" unique_id=1578205383]
@@ -149,3 +155,21 @@ texture = ExtResource("4_ihfcg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4" unique_id=1987252304]
 position = Vector2(-525.04834, 480.43832)
 shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1292462305]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=895794237]
+position = Vector2(187, 1653)
+shape = SubResource("RectangleShape2D_ihfcg")
+
+[node name="Wall5" type="StaticBody2D" parent="." unique_id=207606176 groups=["walls"]]
+position = Vector2(2592, 1344)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall5" unique_id=262686489]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall5" unique_id=1393073969]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_rka8t")

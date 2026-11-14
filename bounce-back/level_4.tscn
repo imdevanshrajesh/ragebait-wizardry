@@ -22,6 +22,7 @@ func _ready() -> void:
 	ui.visible = true
 	label.position = Vector2(60, 60)
 	label.add_theme_font_size_override(\"font_size\", 44)
+	label.add_theme_color_override(\"font_color\", Color.BLACK)
 	if required_bounces > 1:
 		player.required_bounces = required_bounces
 
@@ -48,7 +49,7 @@ func _process(_delta: float) -> void:
 				get_tree().change_scene_to_file(target)
 		else:
 			label.text = \"YOU BEAT THE GAME! (Press R to Replay)\"
-	elif not is_instance_valid(player):
+	elif not is_instance_valid(player) or player.is_dead:
 		label.text = \"YOU DIED! (Press R to Retry)\"
 	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
 		label.text = \"OUT OF AMMO! (Press R to Retry)\"
@@ -64,6 +65,9 @@ size = Vector2(463.86035, 94.14612)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
 size = Vector2(1189, 710)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48hld"]
+size = Vector2(290.5, 309)
 
 [node name="Level4" type="Node2D" unique_id=832187486]
 script = SubResource("GDScript_ootpb")
@@ -156,7 +160,7 @@ position = Vector2(-513.7449, 509.93536)
 shape = SubResource("RectangleShape2D_p1rdq")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
-position = Vector2(4772, -994)
+position = Vector2(4835, -990)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
@@ -164,6 +168,18 @@ position = Vector2(-518, 491)
 texture = ExtResource("4_ihfcg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=294859130]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall3" type="StaticBody2D" parent="." unique_id=947596594 groups=["walls"]]
+position = Vector2(2354, 1333)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall3" unique_id=1026157265]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3" unique_id=467554480]
 position = Vector2(-516.5, 502)
 shape = SubResource("RectangleShape2D_p1rdq")
 
@@ -182,3 +198,9 @@ shape = SubResource("RectangleShape2D_p1rdq")
 [node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
 position = Vector2(25.000002, 1134)
 scale = Vector2(0.84284097, 0.8248574)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=173443817]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2103995101]
+position = Vector2(187, 1653)
+shape = SubResource("RectangleShape2D_48hld")

@@ -66,6 +66,12 @@ size = Vector2(463.86035, 94.14612)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
 size = Vector2(1189, 710)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flyhp"]
+size = Vector2(295.5, 337)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1y8me"]
+size = Vector2(1189, 710)
+
 [node name="Level2" type="Node2D" unique_id=832187486]
 script = SubResource("GDScript_ootpb")
 required_bounces = 2
@@ -109,7 +115,7 @@ offset_bottom = 23.0
 text = "WIN"
 
 [node name="Wall" type="StaticBody2D" parent="." unique_id=233863487 groups=["walls"]]
-position = Vector2(-248, -1003)
+position = Vector2(-236, -1000)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1259656115]
@@ -157,7 +163,7 @@ position = Vector2(-516.5, 502)
 shape = SubResource("RectangleShape2D_p1rdq")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
-position = Vector2(4829, -1004)
+position = Vector2(4835, -1004)
 scale = Vector2(3.4073052, 3.4073052)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
@@ -183,3 +189,22 @@ shape = SubResource("RectangleShape2D_p1rdq")
 [node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
 position = Vector2(25, 1134)
 scale = Vector2(0.84284097, 0.8248574)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=74674805]
+position = Vector2(162, 1509)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1748982516]
+position = Vector2(21, 149.5)
+shape = SubResource("RectangleShape2D_flyhp")
+
+[node name="Wall7" type="StaticBody2D" parent="." unique_id=1382517183 groups=["walls"]]
+position = Vector2(2458, 1333.0001)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall7" unique_id=383228102]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall7" unique_id=1700195456]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_1y8me")

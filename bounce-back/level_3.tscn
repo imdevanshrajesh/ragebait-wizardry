@@ -22,6 +22,7 @@ func _ready() -> void:
 	ui.visible = true
 	label.position = Vector2(60, 60)
 	label.add_theme_font_size_override(\"font_size\", 44)
+	label.add_theme_color_override(\"font_color\", Color.BLACK)
 	if required_bounces > 1:
 		player.required_bounces = required_bounces
 
@@ -48,7 +49,7 @@ func _process(_delta: float) -> void:
 				get_tree().change_scene_to_file(target)
 		else:
 			label.text = \"YOU BEAT THE GAME! (Press R to Replay)\"
-	elif not is_instance_valid(player):
+	elif not is_instance_valid(player) or player.is_dead:
 		label.text = \"YOU DIED! (Press R to Retry)\"
 	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
 		label.text = \"OUT OF AMMO! (Press R to Retry)\"
@@ -63,6 +64,12 @@ func _process(_delta: float) -> void:
 size = Vector2(463.86035, 94.14612)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(1189, 710)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1jdk1"]
+size = Vector2(290.5, 309)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8bo8"]
 size = Vector2(1189, 710)
 
 [node name="Level3" type="Node2D" unique_id=832187486]
@@ -182,3 +189,21 @@ texture = ExtResource("4_ihfcg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4" unique_id=1987252304]
 position = Vector2(-524.46136, 480.4384)
 shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2090236897]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1276754722]
+position = Vector2(187, 1653)
+shape = SubResource("RectangleShape2D_1jdk1")
+
+[node name="Wall3" type="StaticBody2D" parent="." unique_id=1052039239 groups=["walls"]]
+position = Vector2(2354, 1333)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall3" unique_id=660408213]
+position = Vector2(-518, 491)
+texture = ExtResource("4_ihfcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3" unique_id=829316729]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_j8bo8")
