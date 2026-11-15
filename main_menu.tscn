@@ -27,9 +27,9 @@ texture = ExtResource("2_7vrkn")
 [node name="PlayButton" type="Button" parent="TextureRect" unique_id=569933213]
 layout_mode = 0
 offset_left = 507.92297
-offset_top = 270.19583
+offset_top = 229.25706
 offset_right = 689.923
-offset_bottom = 377.19583
+offset_bottom = 336.25708
 scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "PLAY"
@@ -37,9 +37,9 @@ text = "PLAY"
 [node name="QuitButton" type="Button" parent="TextureRect" unique_id=101157460]
 layout_mode = 0
 offset_left = 508.48767
-offset_top = 322.71036
+offset_top = 281.7716
 offset_right = 690.4877
-offset_bottom = 429.71036
+offset_bottom = 388.7716
 scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "Quit
@@ -47,17 +47,31 @@ text = "Quit
 
 [node name="Label" type="Label" parent="." unique_id=984969878]
 layout_mode = 0
-offset_left = 54.0
-offset_top = 1365.9275
-offset_right = 1045.0
-offset_bottom = 1566.9275
+offset_left = 52.0
+offset_top = 1175.0
+offset_right = 1043.0
+offset_bottom = 1376.0
 scale = Vector2(1.0303288, 1.5239961)
 theme_override_font_sizes/font_size = 72
 text = "WARNING: RAGEBAIT AHEAD
 "
 
+[node name="Label2" type="Label" parent="." unique_id=1236745998]
+layout_mode = 0
+offset_left = -899.0
+offset_top = 1357.0
+offset_right = 1873.0
+offset_bottom = 1642.0
+scale = Vector2(1.0303288, 1.5239961)
+theme_override_font_sizes/font_size = 50
+text = "YOU MUST BOUNCE THE PROJECTILE 
+THE SPECIFIED 
+NO OF TIMES (LOOK UPTOP)
+KEEP THIS IN MIND"
+horizontal_alignment = 1
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=821168882]
-position = Vector2(254, 217)
+position = Vector2(254, 127.00001)
 scale = Vector2(1.2874081, 1.2874081)
 texture = ExtResource("3_glbon")
 

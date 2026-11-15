@@ -78,7 +78,7 @@ size = Vector2(326.25, 309)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ons7"]
 size = Vector2(1189, 710)
 
-[node name="Level5" type="Node2D" unique_id=832187486]
+[node name="Level3" type="Node2D" unique_id=832187486]
 position = Vector2(-1, -1)
 script = SubResource("GDScript_ootpb")
 required_bounces = 2
