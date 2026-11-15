@@ -76,10 +76,9 @@ size = Vector2(1189, 710)
 size = Vector2(1248.25, 309)
 
 [node name="Level4" type="Node2D" unique_id=832187486]
-position = Vector2(5, 0)
+position = Vector2(3, 0)
 script = SubResource("GDScript_ootpb")
 required_bounces = 3
-next_level_path = "uid://bl1jmapggn37x"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1347023165]
 position = Vector2(283, 1806)
