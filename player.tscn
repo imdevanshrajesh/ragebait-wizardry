@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b2ujtvgm0slhk"]
+
+[ext_resource type="Script" uid="uid://b34v3wcjf4g00" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://cux7q0oojinda" path="res://Assets/Images/Characters/protagfinal.png" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://bhqljcdlf5p0c" path="res://Assets/Images/Gun & Bullet/Staff.png" id="3_i3pqv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(189, 294.77484)
+
+[node name="Player" type="Node2D" unique_id=939501367]
+script = ExtResource("1_i3pqv")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1591824512 groups=["player"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=961449307]
+position = Vector2(147, 260)
+scale = Vector2(1.4748925, 1.4748925)
+texture = ExtResource("2_i3pqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1862383837]
+position = Vector2(144, 280.99997)
+scale = Vector2(0.9165049, 1.0741706)
+shape = SubResource("RectangleShape2D_p1rdq")
+disabled = true
+
+[node name="GunPivot" type="Node2D" parent="StaticBody2D" unique_id=1708626220]
+position = Vector2(147.00002, 253)
+rotation = 0.05352585
+scale = Vector2(0.4553097, 0.48909268)
+
+[node name="GunSprite" type="Sprite2D" parent="StaticBody2D/GunPivot" unique_id=209942747]
+position = Vector2(378.51636, 3.6438656)
+rotation = -1.0350418
+scale = Vector2(0.9513069, 0.9634279)
+texture = ExtResource("3_i3pqv")
+
+[node name="FirePoint" type="Marker2D" parent="StaticBody2D/GunPivot/GunSprite" unique_id=1883558932]
+position = Vector2(36.435646, 0.48174)
+rotation = 1.0277593
+scale = Vector2(1.0837307, 1.041882)
+skew = 0.01113534

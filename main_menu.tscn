@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://fmqxgu6dgecy"]
 
-[ext_resource type="Script" uid="uid://dx7xywluxirdx" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="Script" uid="uid://dm5yyhpaxfdp6" path="res://main_menu.gd" id="1_7vrkn"]
 [ext_resource type="Texture2D" uid="uid://c107at5fnkopx" path="res://Assets/Images/Backgrounds/msbg.png" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://duoo3838r36or" path="res://Assets/Videos/gif2.png" id="3_glbon"]
+[ext_resource type="VideoStream" uid="uid://clw4il3sujdk3" path="res://Assets/Videos/Intro Video.ogv" id="4_jix8l"]
+[ext_resource type="Script" uid="uid://bix0fibqygbif" path="res://video_stream_player.gd" id="5_glbon"]
 
 [node name="MainMenu" type="Control" unique_id=921526752]
 layout_mode = 3
@@ -23,20 +26,20 @@ texture = ExtResource("2_7vrkn")
 
 [node name="PlayButton" type="Button" parent="TextureRect" unique_id=569933213]
 layout_mode = 0
-offset_left = 501.71158
-offset_top = 208.36418
-offset_right = 683.71155
-offset_bottom = 315.3642
+offset_left = 508.20532
+offset_top = 243.63574
+offset_right = 690.2053
+offset_bottom = 350.63574
 scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "PLAY"
 
 [node name="QuitButton" type="Button" parent="TextureRect" unique_id=101157460]
 layout_mode = 0
-offset_left = 502.27628
-offset_top = 260.8787
-offset_right = 684.27625
-offset_bottom = 367.8787
+offset_left = 508.77002
+offset_top = 296.15027
+offset_right = 690.77
+offset_bottom = 403.15027
 scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "Quit
@@ -44,11 +47,39 @@ text = "Quit
 
 [node name="Label" type="Label" parent="." unique_id=984969878]
 layout_mode = 0
-offset_left = 31.0
-offset_top = 1241.0
-offset_right = 1022.0
-offset_bottom = 1442.0
+offset_left = 54.0
+offset_top = 1365.9275
+offset_right = 1045.0
+offset_bottom = 1566.9275
 scale = Vector2(1.0303288, 1.5239961)
 theme_override_font_sizes/font_size = 72
 text = "WARNING: RAGEBAIT AHEAD
 "
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=821168882]
+position = Vector2(254, 217)
+scale = Vector2(1.2874081, 1.2874081)
+texture = ExtResource("3_glbon")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=586735686]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 118.00001
+offset_right = 1088.0
+offset_bottom = 2038.0
+scale = Vector2(1, 0.93)
+stream = ExtResource("4_jix8l")
+autoplay = true
+expand = true
+script = ExtResource("5_glbon")
+
+[node name="Label" type="Label" parent="VideoStreamPlayer" unique_id=288373703]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 88.17204
+offset_right = 553.0
+offset_bottom = 187.17204
+theme_override_font_sizes/font_size = 72
+text = "Press S to skip."
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

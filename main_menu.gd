@@ -16,10 +16,17 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	if sound_played == false:
 			var sfx = AudioStreamPlayer.new()
-			sfx.stream = load("res://Assets/button.mp3")
+			sfx.stream = load("res://Assets/Audio/menu.mp3")
 			add_child(sfx)
 			sfx.play()
 	get_tree().change_scene_to_file("res://level_1.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_video_stream_player_finished() -> void:
+	$VideoStreamPlayer.queue_free()
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("skip") and has_node("VideoStreamPlayer"):
+		$VideoStreamPlayer.queue_free()

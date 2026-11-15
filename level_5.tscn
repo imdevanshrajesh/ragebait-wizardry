@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://bl1jmapggn37x"]
+
+[ext_resource type="Texture2D" uid="uid://coejp15hiaaps" path="res://Assets/Images/Backgrounds/bg8.jpg" id="1_br4so"]
+[ext_resource type="PackedScene" uid="uid://cpoaij2cyvhs5" path="res://enemy.tscn" id="2_ihfcg"]
+[ext_resource type="PackedScene" uid="uid://b2ujtvgm0slhk" path="res://player.tscn" id="3_rka8t"]
+[ext_resource type="Texture2D" uid="uid://cqnyniwa22cm3" path="res://Assets/Images/Walls/brick2.png" id="4_br4so"]
+
+[sub_resource type="GDScript" id="GDScript_ootpb"]
+script/source = "extends Node2D
+
+@export var required_bounces: int = 1
+@export_file(\"*.tscn\") var next_level_path: String = \"\"
+
+@onready var enemies_folder: Node2D = $Enemies
+@onready var ui: CanvasLayer = $UI
+@onready var label: Label = $UI/Label
+@onready var player: Node2D = $Player
+var sound_played: bool = false
+var transitioning: bool = false
+
+func _ready() -> void:
+	ui.visible = true
+	label.position = Vector2(60, 60)
+	label.add_theme_font_size_override(\"font_size\", 44)
+	label.add_theme_color_override(\"font_color\", Color.BLACK)
+	if required_bounces > 1:
+		player.required_bounces = required_bounces
+
+func get_target_next_level() -> String:
+	if next_level_path != \"\":
+		return next_level_path
+	if scene_file_path.ends_with(\"level_1.tscn\") and ResourceLoader.exists(\"res://level_2.tscn\"):
+		return \"res://level_2.tscn\"
+	if scene_file_path.ends_with(\"level_2.tscn\") and ResourceLoader.exists(\"res://level_3.tscn\"):
+		return \"res://level_3.tscn\"
+	return \"\"
+
+func _process(_delta: float) -> void:
+	if Input.is_key_pressed(KEY_R):
+		get_tree().reload_current_scene()
+		return
+	if enemies_folder.get_child_count() == 0:
+		var target := get_target_next_level()
+		if target != \"\":
+			label.text = \"YOU WIN! Loading Next Level...\"
+			if not transitioning:
+				transitioning = true
+				await get_tree().create_timer(1.0).timeout
+				get_tree().change_scene_to_file(target)
+		else:
+			label.text = \"YOU BEAT THE GAME! (Press R to Replay)\"
+	elif not is_instance_valid(player) or player.is_dead:
+		if sound_played == false:
+			sound_played = true
+			var sfx = AudioStreamPlayer.new()
+			sfx.stream = load(\"res://Assets/death.mp3\")
+			add_child(sfx)
+			sfx.play()
+		label.text = \"YOU DIED! (Press R to Retry)\"
+	elif player.ammo <= 0 and get_tree().get_nodes_in_group(\"bullets\").is_empty():
+		label.text = \"OUT OF AMMO! (Press R to Retry)\"
+	else:
+		var current_bounces := 0
+		if is_instance_valid(player.last_bullet):
+			current_bounces = player.last_bullet.bounces_done
+		label.text = \"Ammo: \" + str(player.ammo) + \" | Min Bounces: \" + str(player.required_bounces) + \" | Bounces: \" + str(current_bounces)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofp2b"]
+size = Vector2(463.86035, 94.14612)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1rdq"]
+size = Vector2(1189, 710)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_br4so"]
+size = Vector2(326.25, 309)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ons7"]
+size = Vector2(1189, 710)
+
+[node name="Level5" type="Node2D" unique_id=832187486]
+position = Vector2(-1, -1)
+script = SubResource("GDScript_ootpb")
+required_bounces = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1347023165]
+position = Vector2(283, 1806)
+scale = Vector2(3.6751392, 3.6751378)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=716720944]
+position = Vector2(-5.4419703, 54.96392)
+scale = Vector2(1.0000002, 1.0000001)
+shape = SubResource("RectangleShape2D_ofp2b")
+
+[node name="Background" type="Sprite2D" parent="StaticBody2D" unique_id=1715237922]
+position = Vector2(145.02852, -282.9826)
+scale = Vector2(0.37618747, 0.3761876)
+texture = ExtResource("1_br4so")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=2113964160]
+scale = Vector2(1.0005345, 1.0007972)
+
+[node name="Enemy" parent="Enemies" unique_id=544123933 instance=ExtResource("2_ihfcg")]
+position = Vector2(1315.2969, 116.90681)
+scale = Vector2(-2.6611924, 2.4817338)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=573386668]
+
+[node name="Label" type="Label" parent="UI" unique_id=1080015511]
+offset_left = -1.0
+offset_right = 39.0
+offset_bottom = 23.0
+text = "WIN"
+
+[node name="Player" parent="." unique_id=939501367 instance=ExtResource("3_rka8t")]
+position = Vector2(78, 1134.0001)
+scale = Vector2(0.84284097, 0.8248574)
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=233863487 groups=["walls"]]
+position = Vector2(-258, -1001)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1259656115]
+position = Vector2(-518, 491)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=1850985]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy" type="StaticBody2D" parent="." unique_id=2124521668 groups=["walls"]]
+position = Vector2(658, 691)
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1893193246]
+position = Vector2(-518, 491)
+texture = ExtResource("4_br4so")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=214670224]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy2" type="StaticBody2D" parent="." unique_id=861749881 groups=["walls"]]
+position = Vector2(653, 465)
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy2" unique_id=141675941]
+position = Vector2(-518, 491)
+texture = ExtResource("4_br4so")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2" unique_id=2121934268]
+position = Vector2(-513.7449, 509.93536)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy3" type="StaticBody2D" parent="." unique_id=176838013 groups=["walls"]]
+position = Vector2(293, 501.99994)
+rotation = -1.574587
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy3" unique_id=1678883615]
+position = Vector2(-518, 491)
+texture = ExtResource("4_br4so")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3" unique_id=1561378541]
+position = Vector2(-513.7449, 509.93536)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Enemy4" type="StaticBody2D" parent="." unique_id=137020973 groups=["walls"]]
+position = Vector2(695.00006, 497.00003)
+rotation = -1.4549389
+scale = Vector2(0.24525791, 0.0960906)
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy4" unique_id=259917313]
+position = Vector2(-518, 491)
+texture = ExtResource("4_br4so")
+
+[node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
+position = Vector2(4838, -1002)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2" unique_id=1301434531]
+position = Vector2(-518, 491)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2" unique_id=294859130]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Wall4" type="StaticBody2D" parent="." unique_id=1491327045 groups=["walls"]]
+position = Vector2(2138, -2806)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall4" unique_id=1578205383]
+position = Vector2(-518, 491)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4" unique_id=1987252304]
+position = Vector2(-524.46136, 480.4384)
+shape = SubResource("RectangleShape2D_p1rdq")
+
+[node name="Area2D" type="StaticBody2D" parent="." unique_id=552961083 groups=["walls"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2021142894]
+position = Vector2(172, 1652)
+shape = SubResource("RectangleShape2D_br4so")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1424979234]
+position = Vector2(1132, 1656)
+shape = SubResource("RectangleShape2D_br4so")
+
+[node name="Wall3" type="StaticBody2D" parent="." unique_id=43553284 groups=["walls"]]
+position = Vector2(2356.0002, 1333)
+scale = Vector2(3.4073052, 3.4073052)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall3" unique_id=2073818722]
+position = Vector2(-518, 491)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3" unique_id=405672672]
+position = Vector2(-516.5, 502)
+shape = SubResource("RectangleShape2D_8ons7")
