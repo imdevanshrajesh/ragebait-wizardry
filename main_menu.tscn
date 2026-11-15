@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://fmqxgu6dgecy"]
+
+[ext_resource type="Texture2D" uid="uid://18nm2d83h3b8" path="res://bg2.png" id="1_06t4h"]
+
+[node name="MainMenu" type="Node2D" unique_id=173827001]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1119379177]
+position = Vector2(1245, 972)
+scale = Vector2(5.3361106, 5.336111)
+texture = ExtResource("1_06t4h")
+
+[node name="PlayButton" type="Button" parent="." unique_id=283064719]
+offset_left = 382.0
+offset_top = 678.0
+offset_right = 564.0
+offset_bottom = 785.0
+scale = Vector2(1.6911944, 1.2885699)
+theme_override_font_sizes/font_size = 72
+text = "PLAY"
+
+[node name="QuitButton" type="Button" parent="." unique_id=412272752]
+offset_left = 384.00003
+offset_top = 920.00006
+offset_right = 566.0
+offset_bottom = 1027.0001
+scale = Vector2(1.6911944, 1.2885699)
+theme_override_font_sizes/font_size = 72
+text = "QUIT"
