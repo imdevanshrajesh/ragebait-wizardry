@@ -26,20 +26,20 @@ texture = ExtResource("2_7vrkn")
 
 [node name="PlayButton" type="Button" parent="TextureRect" unique_id=569933213]
 layout_mode = 0
-offset_left = 508.20532
-offset_top = 243.63574
-offset_right = 690.2053
-offset_bottom = 350.63574
+offset_left = 507.92297
+offset_top = 270.19583
+offset_right = 689.923
+offset_bottom = 377.19583
 scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "PLAY"
 
 [node name="QuitButton" type="Button" parent="TextureRect" unique_id=101157460]
 layout_mode = 0
-offset_left = 508.77002
-offset_top = 296.15027
-offset_right = 690.77
-offset_bottom = 403.15027
+offset_left = 508.48767
+offset_top = 322.71036
+offset_right = 690.4877
+offset_bottom = 429.71036
 scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "Quit

@@ -22,7 +22,7 @@ func _ready() -> void:
 	ui.visible = true
 	label.position = Vector2(60, 60)
 	label.add_theme_font_size_override(\"font_size\", 44)
-	label.add_theme_color_override(\"font_color\", Color.BLACK)
+	label.add_theme_color_override(\"font_color\", Color.WHITE)
 	if required_bounces > 1:
 		player.required_bounces = required_bounces
 
@@ -76,6 +76,7 @@ size = Vector2(1189, 710)
 size = Vector2(1248.25, 309)
 
 [node name="Level4" type="Node2D" unique_id=832187486]
+position = Vector2(5, 0)
 script = SubResource("GDScript_ootpb")
 required_bounces = 3
 next_level_path = "uid://bl1jmapggn37x"

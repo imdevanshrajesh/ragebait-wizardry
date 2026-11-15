@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://bl1jmapggn37x"]
+[gd_scene format=3 uid="uid://dh61gxwo738kl"]
 
-[ext_resource type="Texture2D" uid="uid://coejp15hiaaps" path="res://Assets/Images/Backgrounds/bg8.jpg" id="1_br4so"]
+[ext_resource type="Texture2D" uid="uid://coejp15hiaaps" path="res://Assets/Images/Backgrounds/bg8.jpg" id="1_ugxsx"]
 [ext_resource type="PackedScene" uid="uid://cpoaij2cyvhs5" path="res://enemy.tscn" id="2_ihfcg"]
+[ext_resource type="Texture2D" uid="uid://cqnyniwa22cm3" path="res://Assets/Images/Walls/brick2.png" id="3_48hld"]
 [ext_resource type="PackedScene" uid="uid://b2ujtvgm0slhk" path="res://player.tscn" id="3_rka8t"]
-[ext_resource type="Texture2D" uid="uid://cqnyniwa22cm3" path="res://Assets/Images/Walls/brick2.png" id="4_br4so"]
 
 [sub_resource type="GDScript" id="GDScript_ootpb"]
 script/source = "extends Node2D
@@ -22,7 +22,7 @@ func _ready() -> void:
 	ui.visible = true
 	label.position = Vector2(60, 60)
 	label.add_theme_font_size_override(\"font_size\", 44)
-	label.add_theme_color_override(\"font_color\", Color.BLACK)
+	label.add_theme_color_override(\"font_color\", Color.WHITE)
 	if required_bounces > 1:
 		player.required_bounces = required_bounces
 
@@ -78,7 +78,7 @@ size = Vector2(326.25, 309)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ons7"]
 size = Vector2(1189, 710)
 
-[node name="Level5" type="Node2D" unique_id=832187486]
+[node name="Level3" type="Node2D" unique_id=832187486]
 position = Vector2(-1, -1)
 script = SubResource("GDScript_ootpb")
 required_bounces = 2
@@ -95,7 +95,7 @@ shape = SubResource("RectangleShape2D_ofp2b")
 [node name="Background" type="Sprite2D" parent="StaticBody2D" unique_id=1715237922]
 position = Vector2(145.02852, -282.9826)
 scale = Vector2(0.37618747, 0.3761876)
-texture = ExtResource("1_br4so")
+texture = ExtResource("1_ugxsx")
 
 [node name="Enemies" type="Node2D" parent="." unique_id=2113964160]
 scale = Vector2(1.0005345, 1.0007972)
@@ -133,7 +133,7 @@ scale = Vector2(0.24525791, 0.0960906)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy" unique_id=1893193246]
 position = Vector2(-518, 491)
-texture = ExtResource("4_br4so")
+texture = ExtResource("3_48hld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy" unique_id=214670224]
 position = Vector2(-516.5, 502)
@@ -145,7 +145,7 @@ scale = Vector2(0.24525791, 0.0960906)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy2" unique_id=141675941]
 position = Vector2(-518, 491)
-texture = ExtResource("4_br4so")
+texture = ExtResource("3_48hld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy2" unique_id=2121934268]
 position = Vector2(-513.7449, 509.93536)
@@ -158,7 +158,7 @@ scale = Vector2(0.24525791, 0.0960906)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy3" unique_id=1678883615]
 position = Vector2(-518, 491)
-texture = ExtResource("4_br4so")
+texture = ExtResource("3_48hld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy3" unique_id=1561378541]
 position = Vector2(-513.7449, 509.93536)
@@ -171,7 +171,7 @@ scale = Vector2(0.24525791, 0.0960906)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy4" unique_id=259917313]
 position = Vector2(-518, 491)
-texture = ExtResource("4_br4so")
+texture = ExtResource("3_48hld")
 
 [node name="Wall2" type="StaticBody2D" parent="." unique_id=1259772968 groups=["walls"]]
 position = Vector2(4838, -1002)
