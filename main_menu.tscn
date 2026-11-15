@@ -1,28 +1,54 @@
 [gd_scene format=3 uid="uid://fmqxgu6dgecy"]
 
-[ext_resource type="Texture2D" uid="uid://18nm2d83h3b8" path="res://bg2.png" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://dx7xywluxirdx" path="res://main_menu.gd" id="1_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://c107at5fnkopx" path="res://Assets/Images/Backgrounds/msbg.png" id="2_7vrkn"]
 
-[node name="MainMenu" type="Node2D" unique_id=173827001]
+[node name="MainMenu" type="Control" unique_id=921526752]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7vrkn")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1119379177]
-position = Vector2(1245, 972)
-scale = Vector2(5.3361106, 5.336111)
-texture = ExtResource("1_06t4h")
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1158104365]
+layout_mode = 0
+offset_left = -1432.0
+offset_top = -2.0
+offset_right = -234.0
+offset_bottom = 541.0
+scale = Vector2(3.5418756, 3.5418756)
+texture = ExtResource("2_7vrkn")
 
-[node name="PlayButton" type="Button" parent="." unique_id=283064719]
-offset_left = 382.0
-offset_top = 678.0
-offset_right = 564.0
-offset_bottom = 785.0
-scale = Vector2(1.6911944, 1.2885699)
+[node name="PlayButton" type="Button" parent="TextureRect" unique_id=569933213]
+layout_mode = 0
+offset_left = 501.71158
+offset_top = 208.36418
+offset_right = 683.71155
+offset_bottom = 315.3642
+scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
 text = "PLAY"
 
-[node name="QuitButton" type="Button" parent="." unique_id=412272752]
-offset_left = 384.00003
-offset_top = 920.00006
-offset_right = 566.0
-offset_bottom = 1027.0001
-scale = Vector2(1.6911944, 1.2885699)
+[node name="QuitButton" type="Button" parent="TextureRect" unique_id=101157460]
+layout_mode = 0
+offset_left = 502.27628
+offset_top = 260.8787
+offset_right = 684.27625
+offset_bottom = 367.8787
+scale = Vector2(0.5332939, 0.42332256)
 theme_override_font_sizes/font_size = 72
-text = "QUIT"
+text = "Quit
+"
+
+[node name="Label" type="Label" parent="." unique_id=984969878]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 1241.0
+offset_right = 1022.0
+offset_bottom = 1442.0
+scale = Vector2(1.0303288, 1.5239961)
+theme_override_font_sizes/font_size = 72
+text = "WARNING: RAGEBAIT AHEAD
+"
